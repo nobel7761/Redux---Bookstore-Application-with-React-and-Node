@@ -11,10 +11,12 @@ const BookContainer = () => {
     dispatch(fetchBooks);
   }, [dispatch]);
 
+  console.log("books", books);
+
   return (
     <div className="lws-bookContainer">
-      {books.map((book) => (
-        <Book book={book} key={book.id} />
+      {books.map((book, index) => (
+        <Book book={book} key={index} />
       ))}
     </div>
   );
