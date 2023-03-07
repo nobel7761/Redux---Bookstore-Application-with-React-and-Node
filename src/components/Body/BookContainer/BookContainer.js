@@ -6,7 +6,6 @@ import Book from "./Book";
 const BookContainer = () => {
   const books = useSelector((state) => state.books);
   const dispatch = useDispatch();
-  console.log("books", books);
 
   useEffect(() => {
     dispatch(fetchBooks);
@@ -14,8 +13,8 @@ const BookContainer = () => {
 
   return (
     <div className="lws-bookContainer">
-      {books.map((book, index) => (
-        <Book book={book} key={index} />
+      {books.map((book) => (
+        <Book book={book} key={book.id} />
       ))}
     </div>
   );

@@ -1,35 +1,8 @@
-import { ADDBOOK, ALLBooks, DELETE, EDIT, FEATUREDBOOKS } from "./actionTypes";
+import { ALLBOOKS } from "./actionTypes";
 
-export const addBook = (book) => {
+export const addBooks = (books) => {
   return {
-    type: ADDBOOK,
-    payload: book,
-  };
-};
-
-export const removeBook = (id) => {
-  return {
-    type: DELETE,
-    payload: id,
-  };
-};
-
-export const editBook = (id) => {
-  return {
-    type: EDIT,
-    payload: id,
-  };
-};
-
-export const allBooks = (books) => {
-  return {
-    type: ALLBooks,
+    type: ALLBOOKS,
     payload: books,
-  };
-};
-
-export const featuredBooks = () => {
-  return {
-    type: FEATUREDBOOKS,
   };
 };

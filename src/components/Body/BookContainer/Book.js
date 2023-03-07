@@ -2,7 +2,6 @@ import React from "react";
 
 const Book = ({ book }) => {
   const { name, author, thumbnail, price, rating, featured, id } = book;
-  const stars = [rating];
   return (
     <div className="book-card">
       <img
@@ -15,6 +14,7 @@ const Book = ({ book }) => {
           {featured && (
             <span className="badge-success lws-Badge">featured</span>
           )}
+
           <div className="text-gray-500 space-x-2">
             <button className="lws-edit">
               <svg
@@ -53,14 +53,14 @@ const Book = ({ book }) => {
           <h4 className="lws-bookName">{name}</h4>
           <p className="lws-author">{author}</p>
           <div className="lws-stars">
-            {Array(parseInt(rating))
+            {Array(rating)
               .fill("star")
               .map((star, index) => (
                 <svg
+                  key={index}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   className="lws-star"
-                  key={index}
                 >
                   <path
                     fillRule="evenodd"
