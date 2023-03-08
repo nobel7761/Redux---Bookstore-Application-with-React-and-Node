@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 const AddBookForm = () => {
+  const formRef = useRef();
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
+  const [rating, setRating] = useState("");
+  const [checked, setChecked] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const submittedBook = {
+      name: name,
+      author: author,
+      thumbnail: image,
+      price: price,
+      rating: rating,
+      featured: checked,
+    };
+
+    console.log("Submitted", submittedBook);
+    formRef.current.reset();
+  };
   return (
     <div>
       <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">
         <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
-        <form className="book-form">
+        <form className="book-form" onSubmit={handleSubmit} ref={formRef}>
           <div className="space-y-2">
             <label htmlFor="name">Book Name</label>
             <input
@@ -14,6 +36,7 @@ const AddBookForm = () => {
               type="text"
               id="input-Bookname"
               name="name"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -25,6 +48,7 @@ const AddBookForm = () => {
               type="text"
               id="input-Bookauthor"
               name="author"
+              onChange={(e) => setAuthor(e.target.value)}
             />
           </div>
 
@@ -36,6 +60,7 @@ const AddBookForm = () => {
               type="text"
               id="input-Bookthumbnail"
               name="thumbnail"
+              onChange={(e) => setImage(e.target.value)}
             />
           </div>
 
@@ -48,6 +73,7 @@ const AddBookForm = () => {
                 type="number"
                 id="input-Bookprice"
                 name="price"
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
 
@@ -61,6 +87,7 @@ const AddBookForm = () => {
                 name="rating"
                 min="1"
                 max="5"
+                onChange={(e) => setRating(e.target.value)}
               />
             </div>
           </div>
@@ -71,10 +98,10 @@ const AddBookForm = () => {
               type="checkbox"
               name="featured"
               className="w-4 h-4"
+              onChange={() => setChecked(!checked)}
             />
             <label htmlFor="featured" className="ml-2 text-sm">
-              {" "}
-              This is a featured book{" "}
+              This is a featured book
             </label>
           </div>
 
