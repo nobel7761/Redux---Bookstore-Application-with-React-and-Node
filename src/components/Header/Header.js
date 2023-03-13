@@ -1,7 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../assets/images/logo.svg";
+import { searchBook } from "../../redux/actionCreators";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const searchText = useSelector((state) => state.books.searchText);
+
+  const handleChange = (e) => {
+    const search = e.target.value.toLowerCase();
+    dispatch(searchBook(search));
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("from header", searchText);
+    dispatch(searchBook(searchText));
+  };
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
@@ -13,7 +28,7 @@ const Header = () => {
           <li className="cursor-pointer">My Collection</li>
         </ul>
 
-        <form className="flex items-center">
+        <form onSubmit={handleSearch} className="flex items-center">
           <div className="group relative rounded-md bg-white">
             <svg
               width="20"
@@ -32,6 +47,7 @@ const Header = () => {
               placeholder="Filter books..."
               className="search"
               id="lws-searchBook"
+              onChange={handleChange}
             />
           </div>
         </form>

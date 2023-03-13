@@ -1,7 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { editBook } from "../../redux/actionCreators";
+import deletedBook from "../../redux/thunk/deleteBook";
 
 const Book = ({ book }) => {
-  const { name, author, thumbnail, price, rating, featured, id } = book;
+  const dispatch = useDispatch();
+  const { id, name, author, thumbnail, price, rating, featured } = book;
+
+  const handleEdit = (id) => {
+    dispatch(editBook(id));
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deletedBook(id));
+  };
   return (
     <div className="book-card">
       <img
@@ -11,12 +23,13 @@ const Book = ({ book }) => {
       />
       <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
         <div className="flex items-center justify-between">
-          {featured && (
-            <span className="badge-success lws-Badge">featured</span>
+          {featured ? (
+            <span className=" badge-success lws-Badge">featured</span>
+          ) : (
+            <span></span>
           )}
-
           <div className="text-gray-500 space-x-2">
-            <button className="lws-edit">
+            <button onClick={() => handleEdit(id)} className="lws-edit">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -31,7 +44,7 @@ const Book = ({ book }) => {
                 />
               </svg>
             </button>
-            <button className="lws-delete">
+            <button onClick={() => handleDelete(id)} className="lws-delete">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -53,11 +66,11 @@ const Book = ({ book }) => {
           <h4 className="lws-bookName">{name}</h4>
           <p className="lws-author">{author}</p>
           <div className="lws-stars">
-            {Array(rating)
+            {Array(parseInt(rating))
               .fill("star")
-              .map((star, index) => (
+              .map((star, i) => (
                 <svg
-                  key={index}
+                  key={i}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   className="lws-star"
